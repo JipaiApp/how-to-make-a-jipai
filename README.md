@@ -4,6 +4,10 @@
 
 今天决定将其开源，但还不够，连带后端的实现及 Pili 直播云对接的逻辑一同托出。
 
+先看眼极拍张啥样吧。
+
+![](./jipai.png)
+
 ## 直播
 
 直播是现阶段很多创业团队在尝试的一个需求点，从媒体运行到美女主播，直播因其时实性和强互动性，具有了与以往录播有别的使用体验。
@@ -18,13 +22,107 @@
 
 ## 架构梳理
 
-在进入具体的编码逻辑前，先从更宏观的角度看一下 App, server 与 Pili Cloud 间的关系，如下图：
+在进入具体的编码逻辑前，先从更宏观的角度看一下 App, server 与 Pili Cloud 间的调用关系，如下图：
 
 ![](./workflow.png)
 
-在对接 Pili 直播云中，你会发现，整个直播中核心的一个对象是 `Stream`。它相当于我们传统直播中所说的一路流的概念有些区别，在实际场景中，一个推流端（或一次推流，或一个用户，根据实际业务需求而定）会有它对应的一个 `Stream` 对象。这个 `Stream` 对象通过其 `id` 作为唯一标识。
+在对接 Pili 直播云中，你会发现，整个直播中核心的一个对象是 `Stream`。它与传统直播中所说的一路流的概念有些区别，在实际场景中，一个推流端（或一次推流，或一个用户，根据实际业务需求而定）会有它对应的一个 `Stream` 对象。这个 `Stream` 对象通过其 `id` 作为唯一标识。
 
-### 后端
+你并不需要特别的关心 `Stream` 对象中字段的作用，因为 Pili 直播云已经提供了各个语言的 server 端 SDK 供开发者使用，你可以访问 [Pili Engineering 的 GitHub 页面](https://github.com/pili-engineering) 获取。
 
-我个人写 node 比较顺手，就以 node 为例来做说明对接过程（仍旧（；￣ェ￣）作为我厂的 iOS 程序员以写 node 而倔强的存活着）。
+一个应用在 Pili 直播云会对应一个 `Hub` 的概念，比如我这里的 `Hub` 可以取名为 `jipai-ios`。
 
+### Server 端
+
+我个人写 node 比较顺手，就以 node 为例来做说明对接过程（仍旧作为我厂的 iOS 程序员以写 node 而倔强的存活着（；￣ェ￣））。
+
+我们首先看一下需要的 API
+
+```
+POST /streams
+
+创建一个流
+```
+
+```
+GET /streams/:id
+
+获取一个流
+```
+
+```
+GET /streams/:id/urls
+
+获取一个流对应的 urls， 通过 query 传递 type 类型
+```
+
+以上 3 个接口基本就够极拍使用了。
+
+在 node 中 router 做关联如下：
+
+```
+// API
+var api_v1Router = new Router();
+
+api_v1Router
+    .post('/streams', api_v1.createNewStream)
+    .get('/streams/:id', api_v1.getStream)
+    .get('/streams/:id/urls', api_v1.getUrls);
+```
+
+在 `api_v1` 中，我具体的实现了对 `pili-sdk-nodejs` 的调用。
+
+```
+// 从配置中读取 QiniuAK 和 QiniuSK
+var ACCESS_KEY = config.qiniu.ak;
+var SECRETE_KEY = config.qiniu.sk;
+
+// 读取 HubName
+var HUB = config.qiniu.hub;
+
+// 创建 credentials 与 hub 对象
+var credentials = new Pili.Credentials(ACCESS_KEY, SECRETE_KEY);
+var hub = new Pili.Hub(credentials, HUB);
+```
+
+剩下的具体调用按照 [`pili-sdk-nodejs`](https://github.com/pili-engineering/pili-sdk-nodejs) 的 `README` 文档调用对应接口就可以了。
+
+### App 端
+
+App 端除了 UI 的定制外，主要是集成 `PLCameraStreamingKit` 来直接对接 Pili 直播云。
+
+只需要在 `Podfile` 中添加
+
+```
+pod 'PLCameraStreamingKit'
+```
+
+然后
+
+```
+$ pod install
+```
+
+或者
+
+```
+$ pod update
+```
+
+就集成完毕了。
+
+之后具体的调用可以参见极拍的源码或者 [PLCameraStreamingKit 的 README 文档](https://github.com/pili-engineering/PLCameraStreamingKit)
+
+其中核心的类是 `PLCameraStreamingSession`，整个直播推流过程中基本都是对这个类的实例做的操作。
+
+One more thing，`PLCameraStreamingKit` 提供了一种切换推流质量的方法，也就是说，在网络环境变更或者其他任何你认为需要提高或者降低推流质量的情况下，你都可以直接操作做切换，并且会有方法回调告知发送队列的状态。
+
+## 该你试一试了
+
+看完差不多手痒痒了，也该你试一试了。Pili 直播云现在处于内测阶段，在具有了七牛账号后，你可以通过发送邮件到[这里](mailto:pili@qiniu.com)申请开通直播权限，最好附带上你需要的直播场景和业务描述。
+
+## 引用
+
+- [Pili Engineering GitHub Pages](https://github.com/pili-engineering)
+- [Pili Server-side SDK for NodeJS](https://github.com/pili-engineering/pili-sdk-nodejs)
+- [Pili iOS Camera live streaming SDK](https://github.com/pili-engineering/PLCameraStreamingKit)
