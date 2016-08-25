@@ -9,7 +9,7 @@
 
 既然要做开放，我想那还是要更为贴近 Pili 原本做事的方式和态度来的，所以单独创建了 Jipai App 这个单独的 Orginization 来做内容的管理，也方便如果有感兴趣的朋友提了 pull request 后便于跟进规整。是的，是更为贴近 Pili 而非七牛，因为对于我来说，更多的时间是身为 Pili 的一员在打拼。
 
-## 2015 年完稿的正文
+## 正文
 
 为什么会有一个叫做极拍的 App 呢？最初是为了测试 Pili 直播业务，后来干脆从界面上和业务逻辑上写的更透彻些，写成了一个基本可以直接上 App Store 的 App。
 
@@ -98,6 +98,8 @@ var hub = new Pili.Hub(credentials, HUB);
 
 剩下的具体调用按照 [`pili-sdk-nodejs`](https://github.com/pili-engineering/pili-sdk-nodejs) 的 `README` 文档调用对应接口就可以了。
 
+One more thing, [这里](https://github.com/jipaiapp/jipai-server-node)是我实现的极拍 Node.js 版本的 server，可以简单的作为参考。
+
 ### App 端
 
 App 端除了 UI 的定制外，主要是集成 `PLCameraStreamingKit` 来直接对接 Pili 直播云。
@@ -126,19 +128,21 @@ $ pod update
 
 其中核心的类是 `PLCameraStreamingSession`，整个直播推流过程中基本都是对这个类的实例做的操作。
 
-One more thing，`PLCameraStreamingKit` 提供了一种切换推流质量的方法，也就是说，在网络环境变更或者其他任何你认为需要提高或者降低推流质量的情况下，你都可以直接操作做切换，并且会有方法回调告知发送队列的状态。
+One more thing，[这里](https://github.com/jipaiapp/jipai-app-ios)是我实现的极拍 iOS App 源码，拿去玩吧。
 
 ## 该你试一试了
 
-看完差不多手痒痒了，也该你试一试了。Pili 直播云现在处于内测阶段，在具有了七牛账号后，你可以通过发送邮件到[这里](mailto:pili@qiniu.com)申请开通直播权限，最好附带上你需要的直播场景和业务描述。
+看完差不多手痒痒了，也该你试一试了。在具有了七牛账号后，你可以通过发送邮件到[这里](mailto:pili@qiniu.com)申请开通直播权限，最好附带上你需要的直播场景和业务描述。
 
 ## 引用
 
+- [Jipai iOS App](https://github.com/jipaiapp/jipai-app-ios)
+- [Jipai Server in Node.js](https://github.com/jipaiapp/jipai-server-node)
 - [Pili Engineering GitHub Pages](https://github.com/pili-engineering)
-- [Pili Server-side SDK for NodeJS](https://github.com/pili-engineering/pili-sdk-nodejs)
+- [Pili Server-side SDK in Node.js](https://github.com/pili-engineering/pili-sdk-nodejs)
 - [Pili iOS Camera live streaming SDK](https://github.com/pili-engineering/PLCameraStreamingKit)
 
-## 2016 年补充与开源内容直接或间接的贡献人
+## 与开源内容直接或间接相关的贡献人
 
 - [0dayZh](http://github.com/0dayZh)
   - Jipai App 及 server 端
