@@ -149,7 +149,7 @@ One more thing，[这里](https://github.com/jipaiapp/jipai-app-ios)是我实现
   - Jipai 产品原型
 - [Crystalhoo](https://dribbble.com/crystalhoo)
   - Jipai App && Web 设计师
-- [Miccle](https://github.com/miclle)
+- [Miclle](https://github.com/miclle)
   - Web 前端
 - [Googollee](https://github.com/googollee)
   - Pili 后端架构师 (前)
