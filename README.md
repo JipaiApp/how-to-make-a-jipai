@@ -156,4 +156,4 @@ One more thing，[这里](https://github.com/jipaiapp/jipai-app-ios)是我实现
 
 ## License
 
-所有文档及资源（图片）基于 [CC-BY-DN](https://creativecommons.org/licenses/by-nd/4.0/) 开放授权。
+文档及资源（图片）基于 [CC-BY-DN](https://creativecommons.org/licenses/by-nd/4.0/) 开放授权。
