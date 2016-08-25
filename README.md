@@ -1,5 +1,14 @@
 # [技术向]我不仅要把极拍 App 源码给你
 
+## 写在开篇前的话
+
+这篇文章及相关项目代码在 15 年就写好了，不过因为种种原因一直没有开放，我已与今年六一（儿童节）正式从七牛离职了，后征求了负责直播项目的 VP 同意可以将这部分内容开源。
+说起来在直播团队做的事情还是蛮有趣，尝试了一年半的完全远程办公，从零开始构建直播整体架构，对接第一个客户，招收第一个新成员，一步步走到今天是蛮不容易，不过也很遗憾看到最初的八人小组只剩下两人还在直播组内。
+我不敢说自己有什么匠人情怀，只是看到自己做的东西不能被他人知晓会有所失落，毕竟付出了精力和真心换取的如果只是无声的埋没，我想谁都很难在最终的价值认可上获益。
+既然要做开放，我想那还是要更为贴近 Pili 原本做事的方式和态度来的，所以单独创建了 Jipai App 这个单独的 Orginization 来做内容的管理，也方便如果有感兴趣的朋友提了 pull request 后便于跟进规整。是的，是更为贴近 Pili 而非七牛，因为对于我来说，更多的时间是身为 Pili 的一员在打拼。
+
+## 2015 年完稿的正文
+
 为什么会有一个叫做极拍的 App 呢？最初是为了测试 Pili 直播业务，后来干脆从界面上和业务逻辑上写的更透彻些，写成了一个基本可以直接上 App Store 的 App。
 
 今天决定将其开源，但还不够，连带后端的实现及 Pili 直播云对接的逻辑一同托出。
@@ -126,3 +135,15 @@ One more thing，`PLCameraStreamingKit` 提供了一种切换推流质量的方�
 - [Pili Engineering GitHub Pages](https://github.com/pili-engineering)
 - [Pili Server-side SDK for NodeJS](https://github.com/pili-engineering/pili-sdk-nodejs)
 - [Pili iOS Camera live streaming SDK](https://github.com/pili-engineering/PLCameraStreamingKit)
+
+## 2016 年补充与开源内容直接或间接的贡献人
+
+- [0dayZh](http://github.com/0dayZh)
+  - Jipai App 及 server 端
+  - Jipai 产品原型
+- [Crystalhoo](https://dribbble.com/crystalhoo)
+  - Jipai App && Web 设计师
+- [Miccle](https://github.com/miclle)
+  - Web 前端
+- [Googollee](https://github.com/googollee)
+  - Pili 前后端架构师
